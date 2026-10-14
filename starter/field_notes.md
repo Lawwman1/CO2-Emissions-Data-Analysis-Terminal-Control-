@@ -86,11 +86,13 @@ Next you want to see just the column names by themselves — one per line is
 a lot easier to scan than one long comma-separated row.
 
 ```bash
-cut -d ',' -f 1 co2_emission_2022.csv
+head -n 1 co2_emissions_2022.csv  
 ```
 
-**Output:**
-_TODO_
+**Output:
+```bash
+country,iso_code,year,population,gdp,co2
+```
 
 ## 3. Column-by-column data type table
 
@@ -100,7 +102,7 @@ row. Column numbers for reference: `country`=1, `iso_code`=2, `year`=3,
 `population`=4, `gdp`=5, `co2`=6.
 
 ```bash
-awk -F ',' {print$1} co2_emissions_2022.csv| head -n 7
+cut -d ',' -f 1 co2_emissions_2022.csv | head -n 7
 ```
 
 Fill in the table from what you actually saw — not a guess from the column
