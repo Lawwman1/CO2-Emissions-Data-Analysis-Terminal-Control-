@@ -50,6 +50,7 @@ reconstruct it from memory at the end.
 
 ```bash
 cd data/
+
 ```
 
 ## 1. First look at the raw file
@@ -59,13 +60,25 @@ safe peek at it — not the whole 254-row file, just the **first 5 lines**,
 enough to see the shape of it without scrolling past everything.
 
 ```bash
-# TODO: a command that prints just the first 5 lines of the raw file
+head -n 5 co2_emissions_2022.csv 
 ```
 
 **Output:**
-_TODO: paste what you actually got_
 
-**What I notice:** _TODO — your raw observations, in your own words_
+```bash
+country,iso_code,year,population,gdp,co2
+Afghanistan,AFG,2022,40578847,53303471617,10.170
+Africa,,2022,1445862695,,1459.114
+Africa (GCP),,2022,,,1459.103
+Albania,ALB,2022,2827614,36171005594,4.498
+```
+**What I notice:**
+
+```bash
+
+```
+
+
 
 ## 2. Column names
 
@@ -73,8 +86,7 @@ Next you want to see just the column names by themselves — one per line is
 a lot easier to scan than one long comma-separated row.
 
 ```bash
-# TODO: a command (or combination of commands) that prints just the header
-# row, one column name per line
+cut -d ',' -f 1 co2_emission_2022.csv
 ```
 
 **Output:**
@@ -88,8 +100,7 @@ row. Column numbers for reference: `country`=1, `iso_code`=2, `year`=3,
 `population`=4, `gdp`=5, `co2`=6.
 
 ```bash
-# TODO: a command that prints the first 6 values from a single column
-# (repeat this for at least 5 of the 6 columns, swapping in each column's number)
+awk -F ',' {print$1} co2_emissions_2022.csv| head -n 7
 ```
 
 Fill in the table from what you actually saw — not a guess from the column
@@ -97,11 +108,12 @@ name alone:
 
 | Column | Inferred type | How I can tell |
 |---|---|---|
-| _TODO_ | _TODO_ | _TODO_ |
-| _TODO_ | _TODO_ | _TODO_ |
-| _TODO_ | _TODO_ | _TODO_ |
-| _TODO_ | _TODO_ | _TODO_ |
-| _TODO_ | _TODO_ | _TODO_ |
+| _Country_ | String | _TODO_ |
+| _ISO Code_ | Int | _TODO_ |
+| _Year_ | Int |  |
+| _Population_ | Int | _TODO_ |
+| GDP | Float | _TODO_ |
+| Co2 | float | 
 
 **In your own words:** what's the actual difference between a list/array
 and a table? (Not a definition you looked up — explain it the way you'd
