@@ -75,7 +75,7 @@ Albania,ALB,2022,2827614,36171005594,4.498
 **What I notice:**
 
 ```bash
-
+I noticed that there are certain data points that are missing from the spreadsheet (The ISO code, population, and GDP and missing from Africa)
 ```
 
 
