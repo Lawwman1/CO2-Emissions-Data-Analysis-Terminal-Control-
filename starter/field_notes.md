@@ -128,8 +128,9 @@ _TODO_
 
 State whether this dataset is structured or unstructured, and why.
 
-_TODO_
-
+```bash
+This data is semi-structured, as the column that the data seems to be sorted by, countries, is not fully structured. there are titles in the countries category that are not actually countries. Some are continents, and others are unspecified.
+```
 ## 5. Before you trust this data
 
 Your first look (see section 1) turned up a row with a suspiciously
