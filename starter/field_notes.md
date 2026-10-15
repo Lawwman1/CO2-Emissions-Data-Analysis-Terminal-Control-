@@ -163,8 +163,8 @@ dataset was collected, before trusting any conclusion drawn from it — ground
 at least one in the counts you just found.
 
 **My 2 concerns:**
-1. _TODO_
-2. _TODO_
+1. I would want to know why so many countries ISO code is missing. Every country has an ISO code, so the fact that there are 36 entries missing it is concerning
+2. Should it be inferred that there was no data to report for the GDP for some countries, or that ther entries are not countries, therefore they have no GDP?
 
 ## 6. Data-quality question for the source
 
