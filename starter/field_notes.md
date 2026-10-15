@@ -114,8 +114,8 @@ name alone:
 | _ISO Code_ | Int | _TODO_ |
 | _Year_ | Int |  |
 | _Population_ | Int | _TODO_ |
-| GDP | Float | _TODO_ |
-| Co2 | float | 
+| _GDP_ | Float | _TODO_ |
+| _Co2_ | float | 
 
 **In your own words:** what's the actual difference between a list/array
 and a table? (Not a definition you looked up — explain it the way you'd
@@ -141,19 +141,22 @@ You may need more than one command for this — piping (`|`) feeds one
 command's output into the next as input.
 
 ```bash
-# TODO: a command (or combination) that counts how many rows have a
-# BLANK iso_code
+A command (or combination) that counts how many rows have a BLANK iso_code
+
+cut -d ',' -f 2 co2_emissions_2022.csv | grep -c '^$'
 ```
 
 **Output:**
-_TODO_
+_36_
 
 ```bash
-# TODO: the same idea, but for the gdp column
+The same idea, but for the gdp column
+
+cut -d ',' -f 5 co2_emissions_2022.csv | grep -c '^$'
 ```
 
 **Output:**
-_TODO_
+_89_
 
 List **at least 2** specific things you'd want to know about how this
 dataset was collected, before trusting any conclusion drawn from it — ground
