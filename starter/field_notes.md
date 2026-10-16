@@ -220,10 +220,10 @@ fact before relying on it professionally — specific enough that you could
 actually follow it, not "I'll be careful."
 
 **Risks:**
-1. _TODO_
-2. _TODO_
+1. AI could give outdated information
+2. AI does not always explain the answer to you, so if I needed to understand why the code it gave me worked I had to enter extra prompts
 
-**My rule:** _TODO_
+**My rule:** Don't enter an output that you cannot personally verify after. I need to be able to check the AI's work after it produces an output
 
 ## 9. Something that went wrong (and how you figured it out)
 
@@ -235,9 +235,11 @@ fix — not "I googled it and it worked."
 
 ```bash
 # TODO: a command that errored, or gave you unexpected results
+
+git add
 ```
 
 **What happened:**
-_TODO: the actual error message, or the unexpected output you got_
+Nothing specified, nothing added
 
-**What it told me and how I fixed it:** _TODO_
+**What it told me and how I fixed it:** I did an incorrect syntax. I needed to add a period after git add (git add .)
