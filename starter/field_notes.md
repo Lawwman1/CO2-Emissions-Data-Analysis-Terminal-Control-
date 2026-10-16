@@ -194,14 +194,22 @@ curious to explore using this data? Pick two specific countries you're
 curious to compare, and look up their full rows.
 
 ```bash
-# TODO: a command that finds a specific country's row by name (repeat for
-# a second country of your choice)
+A command that finds a specific country's row by name
+
+grep -i "brazil" co2_emissions_2022.csv
+grep -i "africa" co2_emissions_2022.csv
+
 ```
 
 **Output:**
-_TODO_
+Brazil,BRA,2022,210306411,3187412907763,480.058
 
-**My question:** _TODO_
+Africa,,2022,1445862695,,1459.114
+Africa (GCP),,2022,,,1459.103
+Central African Republic,CAF,2022,5098038,3752056621,0.377
+South Africa,ZAF,2022,62378417,723559323969,428.782
+
+**My question:** Why is there a difference between Africa and Africa (GCP)?
 
 ## 8. AI-literacy reflection
 
