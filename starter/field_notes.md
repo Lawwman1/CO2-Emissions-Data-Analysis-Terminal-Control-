@@ -49,6 +49,14 @@ this repo up (see `README.md`) — `git init`/clone, creating your
 reconstruct it from memory at the end.
 
 ```bash
+mkdir Mod0Project
+cd Mod0project
+git clone https://github.com/Lawwman1CO2-Emissions-Data-Analysis-Terminal-Control-.git
+cd CO2-Emissions-Data-Analysis-Terminal-Control-
+touch .gitignore
+git add .
+git commit -m "Added Git Ignore"
+git push
 cd data/
 
 ```
