@@ -234,7 +234,7 @@ this at least once. Paste the actual command and what actually happened
 fix — not "I googled it and it worked."
 
 ```bash
-# TODO: a command that errored, or gave you unexpected results
+A command that errored, or gave you unexpected results
 
 git add
 ```
