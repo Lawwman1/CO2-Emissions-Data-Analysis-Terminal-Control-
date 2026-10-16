@@ -110,12 +110,12 @@ name alone:
 
 | Column | Inferred type | How I can tell |
 |---|---|---|
-| _Country_ | String | _TODO_ |
-| _ISO Code_ | Int | _TODO_ |
-| _Year_ | Int |  |
-| _Population_ | Int | _TODO_ |
-| _GDP_ | Float | _TODO_ |
-| _Co2_ | float | 
+| _Country_ | String | The countries are all words that do not have any numeric values |
+| _ISO Code_ | Int | All these are numbers without decimal poimts that hold numeric values |
+| _Year_ | Int | Like the ISO code, years and whole numbers that actually have numeric value |
+| _Population_ | Int | Population has to be descibed by a number, and you can't have 0.5 of a person |
+| _GDP_ | Float | GDP is a numeric value. However, unlike ISO codes, the GDP has a decimal point, making it a float|
+| _Co2_ | float | Co2 levels have a numeric decimal point value, making them a float |
 
 **In your own words:** what's the actual difference between a list/array
 and a table? (Not a definition you looked up — explain it the way you'd
@@ -173,8 +173,9 @@ phrase it as a real question you'd send to the data's source/maintainer. A
 good test: could they actually answer it with a concrete yes/no or fact —
 not "is this data good?"
 
-_TODO_
-
+```bash
+Does the GDP missing have something to do with the miscatergorization of certain values?
+```
 ## 7. Something you're actually curious about
 
 Different question from #6 — that one was about checking the data's
