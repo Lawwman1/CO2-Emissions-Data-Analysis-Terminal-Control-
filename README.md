@@ -1,10 +1,11 @@
 # CO₂ Emissions Data Quality Investigation (2022)
-Project Overview
+# Project Overview
+
 How reliable is a country-level carbon emissions dataset when it is being used to inform climate decisions?
 
 This project investigates a 2022 snapshot of global CO₂ emissions, population, and GDP data. The goal was to understand the structure of an unfamiliar dataset, identify missing or potentially misleading values, and determine what should be verified before using the data to guide real-world decisions.
 
-Scenario & Questions
+# Scenario & Questions
 Imagine a climate-and-energy nonprofit deciding where to direct community-protection resources and climate-support efforts. Before using emissions data to inform those decisions, the team needs to know what the dataset actually contains and where its limitations lie.
 
 I set out to answer five questions:
@@ -16,18 +17,24 @@ Could missing values or regional aggregates lead to misleading conclusions?
 What specific question should be answered by the data provider before the dataset is trusted for decision-making?
 I also explored a separate question: Why do the reported CO₂ values for Africa and Africa (GCP) differ?
 
-Dataset Overview
+# Dataset Overview
 Dataset: CO₂ emissions and related indicators for 2022
+
 File: data/co2_emissions_2022.csv
+
 Source: Our World in Data — CO₂ and Greenhouse Gas Emissions
+
 Original data: owid-co2-data.csv
+
 License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
 Source documentation: data/SOURCE.md
+
 The file is a curated snapshot of the larger Our World in Data dataset. It retains six columns and all 254 reported entities for 2022, including countries, territories, regional aggregates, and other groupings. No values were deliberately filled in or corrected when the snapshot was created.
 
 The original dataset draws on the Global Carbon Project and other sources. See the source repository for additional attribution and methodology.
 
-What I Found
+# What I Found
 1. Column types
 The CSV is structured data: records are organized into rows, with consistent named columns.
 
@@ -62,7 +69,7 @@ Brazil provides another concrete example: its 2022 row reports a population of 2
 
 These examples illustrate why a data analyst must examine what each row represents before comparing values or drawing conclusions.
 
-Data Quality Question
+# Data Quality Question
 Question for the data provider:
 
 How are missing GDP values represented and explained in the 2022 dataset, particularly for records that represent regional aggregates rather than individual countries, and is there documentation that distinguishes unavailable GDP data from values that are not applicable?
@@ -71,7 +78,7 @@ I chose this question because 89 rows have missing GDP values, and the dataset i
 
 The 36 blank ISO codes also reinforce the need to distinguish aggregate records from individual countries. A missing identifier should be investigated in context rather than automatically classified as an error.
 
-Reflection: AI Literacy
+# Reflection: AI Literacy
 This investigation reinforced that AI can help explain unfamiliar concepts and suggest ways to investigate data, but its output still needs to be checked against evidence.
 
 Two risks stood out to me:
@@ -82,7 +89,7 @@ My personal rule is to verify AI-provided facts against the actual dataset, docu
 
 The main lesson is that a plausible-looking result is not the same as a verified fact. Good analysis requires checking the source, understanding the structure, and asking questions about what the data does not tell us.
 
-Conclusion
+# Conclusion
 A dataset can be neatly organized and still require careful investigation before it is suitable for decision-making. This snapshot provides useful information about global CO₂ emissions, but missing GDP values, blank identifiers, and aggregate records all require context.
 
 Before using it to prioritize climate-support efforts, I would seek clarification from the data provider about missing-value conventions and the definitions of aggregate records. Understanding those limitations is an essential first step toward responsible data analysis.
