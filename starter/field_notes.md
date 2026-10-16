@@ -130,7 +130,9 @@ and a table? (Not a definition you looked up — explain it the way you'd
 explain it to a friend who's never coded. No command needed for this one,
 just think about the table you just filled in above.)
 
-_TODO_
+```bash
+A list is more linear than an array; a list is more 1 dimensional, whle an array can be both horizontal and vertical
+```
 
 ## 4. Structured or unstructured?
 
