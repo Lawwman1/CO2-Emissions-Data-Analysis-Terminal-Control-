@@ -1,180 +1,88 @@
-# Foundations Project: Data Literacy Field Notes
+# CO₂ Emissions Data Quality Investigation (2022)
+Project Overview
+How reliable is a country-level carbon emissions dataset when it is being used to inform climate decisions?
 
-**New here?** Start with `PROJECT_OVERVIEW.md` for what you're building and
-why. This file (`README.md`) is where the step-by-step setup lives — you're
-already in the right place.
+This project investigates a 2022 snapshot of global CO₂ emissions, population, and GDP data. The goal was to understand the structure of an unfamiliar dataset, identify missing or potentially misleading values, and determine what should be verified before using the data to guide real-world decisions.
 
-**Due:** 2 days (this first project is intentionally short — a couple of
-focused days right after this module's content phase, not a full week, since
-it's meant to get you moving, not to be a big lift), plus a share-out
-during TIP this week. See
-`CHECKLIST_TIMELINE.md` for a suggested day-by-day pace and the full
-submission checklist.
+Scenario & Questions
+Imagine a climate-and-energy nonprofit deciding where to direct community-protection resources and climate-support efforts. Before using emissions data to inform those decisions, the team needs to know what the dataset actually contains and where its limitations lie.
 
-This repo is a **GitHub template** — a starting point, not something you edit
-directly on Marcy's copy of it. This is the first project of the whole
-program, so this doc assumes you've never done any of this before. Everyone
-in this cohort is on **macOS** — these directions only cover that, on
-purpose, so there's no cross-platform noise to wade through.
+I set out to answer five questions:
 
-## Getting started
+What does each column represent, and what is its appropriate data type?
+Is the dataset structured or unstructured?
+How many records have missing ISO country codes or GDP values?
+Could missing values or regional aggregates lead to misleading conclusions?
+What specific question should be answered by the data provider before the dataset is trusted for decision-making?
+I also explored a separate question: Why do the reported CO₂ values for Africa and Africa (GCP) differ?
 
-### Step 1: Get your own copy
+Dataset Overview
+Dataset: CO₂ emissions and related indicators for 2022
+File: data/co2_emissions_2022.csv
+Source: Our World in Data — CO₂ and Greenhouse Gas Emissions
+Original data: owid-co2-data.csv
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Source documentation: data/SOURCE.md
+The file is a curated snapshot of the larger Our World in Data dataset. It retains six columns and all 254 reported entities for 2022, including countries, territories, regional aggregates, and other groupings. No values were deliberately filled in or corrected when the snapshot was created.
 
-On this repo's GitHub page, you'll see two buttons that both sound like "make
-a copy" but do different things:
+The original dataset draws on the Global Carbon Project and other sources. See the source repository for additional attribution and methodology.
 
-- **"Use this template"** ← use this one. It creates a brand-new, independent
-  repository under *your* GitHub account, with no visible link back to this
-  template. That's what you want for something that becomes part of your
-  portfolio.
-- **"Fork"** — creates a copy that stays linked to this one (GitHub will show
-  "forked from marcy-lab-school/..." on your repo forever). Fork is the right
-  tool when you intend to contribute changes back to the original project —
-  that's not this. Don't use Fork here.
+What I Found
+1. Column types
+The CSV is structured data: records are organized into rows, with consistent named columns.
 
-Click **"Use this template" → "Create a new repository,"** name it something
-like `data-literacy-field-notes`, keep it **public** (the assignment requires
-a public repo), and create it.
 
-### Step 2: Set up your tools
+Column	Appropriate type	Reason
+country	String / text	Contains country, territory, and aggregate names.
+iso_code	String / text	Contains identifiers such as AFG and BRA; these are labels, not quantities.
+year	Integer	Contains the year 2022.
+population	Integer or nullable integer	Represents counts of people; some entries are blank.
+gdp	Numeric, typically integer-valued in this file	Represents an economic quantity, with missing values in some records.
+co2	Decimal / floating-point number	Contains emissions values such as 10.170 and 480.058.
+An important distinction is that a CSV stores values as text, so these are the types inferred from the meaning and appearance of the values rather than a guarantee of how a particular software tool will parse them. Missing values also need to be handled explicitly during analysis.
 
-Tools for this module (all free):
+2. Missing values
+My terminal inspection identified two important gaps:
 
-- **Terminal** — already on your Mac (Applications → Utilities → Terminal, or
-  `Cmd+Space` and type "Terminal").
-- **Git** — check if it's already installed: open Terminal and run `git
-  --version`. If it's not installed, macOS will prompt you to install the
-  Xcode Command Line Tools — accept that prompt.
-- **GitHub** — free tier, unlimited public repos. Create an account if you
-  don't have one.
-- **VS Code** — download from https://code.visualstudio.com (the macOS
-  `.dmg` build), drag it into Applications. You'll use it to edit Markdown
-  files and open a terminal — not to write or run any Python code this
-  project; there is none.
+36 rows have a blank iso_code.
+89 rows have a blank gdp.
+These counts show that missing information is a recurring feature of the dataset, not just an isolated error.
 
-### Step 3: Clone your new repo locally
+However, a blank ISO code does not automatically mean that a record is incorrect. Some entries represent continents, income groups, or other aggregates that do not have individual country codes. Similarly, a blank GDP value does not establish whether the value was unavailable, inapplicable, or omitted for another reason.
 
-Open **Terminal** (`Cmd+Space`, type "Terminal," hit Enter). On your own new
-repo's page (not this template), click the green **Code** button, copy the
-HTTPS URL, then:
+3. Regional aggregates need careful interpretation
+The first few CSV rows already reveal why understanding the data matters:
 
-```bash
-git clone <the URL you copied>
-cd <your-repo-name>
-```
+Afghanistan has an ISO code (AFG), a population of 40,578,847, a GDP value, and a CO₂ value of 10.170.
+Africa has a population of 1,445,862,695 and a CO₂ value of 1459.114, but its ISO code and GDP fields are blank.
+Africa (GCP) has a CO₂ value of 1459.103, while its ISO code, population, and GDP fields are blank.
+The two Africa-related entries have slightly different reported CO₂ values. Their labels indicate that they represent different groupings or methodologies, so they should not automatically be treated as interchangeable.
 
-### Step 4: Set up your environment yourself
+Brazil provides another concrete example: its 2022 row reports a population of 210,306,411, GDP of 3,187,412,907,763, and CO₂ of 480.058.
 
-This module is literally about learning git, GitHub, and the terminal — so
-unlike some later projects, this template does **not** come with a
-`.gitignore` already made. Creating it yourself is part of the assignment:
+These examples illustrate why a data analyst must examine what each row represents before comparing values or drawing conclusions.
 
-- **Create a `.gitignore`.** A `.gitignore` is a plain-text list of files and
-  folders git should never track. From the terminal (inside your repo
-  folder):
-  ```bash
-  touch .gitignore
-  ```
-  Then open `.gitignore` in VS Code, paste in exactly these lines, and save:
-  ```
-  # macOS creates this hidden file in every folder you open in Finder
-  .DS_Store
+Data Quality Question
+Question for the data provider:
 
-  # VS Code's per-folder editor settings — personal, not part of the project
-  .vscode/
+How are missing GDP values represented and explained in the 2022 dataset, particularly for records that represent regional aggregates rather than individual countries, and is there documentation that distinguishes unavailable GDP data from values that are not applicable?
 
-  # Python and Jupyter leftovers — you won't make these in this project,
-  # but you will in later modules, so ignore them from day one
-  __pycache__/
-  .ipynb_checkpoints/
-  ```
-  Lines starting with `#` are comments — git skips them. A name ending in
-  `/` means "ignore this whole folder." You'll be asked about what's in your
-  `.gitignore` during share-out, so read the comments rather than just
-  pasting.
-- **Make your first commit.** Once your `.gitignore` is saved:
-  ```bash
-  git add .gitignore
-  git commit -m "add gitignore"
-  git push
-  ```
+I chose this question because 89 rows have missing GDP values, and the dataset includes both individual entities and aggregate groupings. Without knowing why values are blank, an analyst could incorrectly treat missing data as zero, exclude records that should be included, or make unfair comparisons between countries and regions.
 
-You do **not** need to add a `LICENSE` file for this project.
+The 36 blank ISO codes also reinforce the need to distinguish aggregate records from individual countries. A missing identifier should be investigated in context rather than automatically classified as an error.
 
-You should already have `git init`-equivalent setup from cloning (cloning
-sets up the local repo and connects the remote for you) — if you're not sure
-`git status` and `git remote -v` both work cleanly in this folder, that's the
-first thing to check before moving on.
+Reflection: AI Literacy
+This investigation reinforced that AI can help explain unfamiliar concepts and suggest ways to investigate data, but its output still needs to be checked against evidence.
 
-### What your repo should look like once this step is done
+Two risks stood out to me:
 
-```
-your-repo-name/
-├── .gitignore          ← you create this
-├── README.md           ← already here
-├── PROJECT_OVERVIEW.md ← already here
-├── CHECKLIST_TIMELINE.md ← already here
-├── data/               ← already here (the dataset you'll inspect)
-└── starter/
-    └── field_notes.md  ← already here (what you'll fill in)
-```
+Outdated or inaccurate information: An AI assistant might provide incorrect assumptions about a dataset, its source, or its columns.
+Commands without understanding: An AI-generated terminal command might produce an output that I cannot explain or verify, leaving me dependent on a result I do not fully understand.
+My personal rule is to verify AI-provided facts against the actual dataset, documentation, or terminal output before relying on them professionally. I should also understand what a command does before running it and be able to explain what its result means.
 
-### Writing bash commands (you'll need this)
+The main lesson is that a plausible-looking result is not the same as a verified fact. Good analysis requires checking the source, understanding the structure, and asking questions about what the data does not tell us.
 
-Anywhere in this project you write down a terminal command — in
-`starter/field_notes.md`, this file, anywhere — write it in a **fenced code
-block tagged `bash`**, like this:
+Conclusion
+A dataset can be neatly organized and still require careful investigation before it is suitable for decision-making. This snapshot provides useful information about global CO₂ emissions, but missing GDP values, blank identifiers, and aggregate records all require context.
 
-````
-```bash
-git status
-```
-````
-
-Three backticks, the word `bash`, your command, three backticks to close.
-This is the standard way commands are shown in any real README or docs
-site — it renders with syntax highlighting and makes the command
-copy-pasteable, instead of just sitting in a paragraph as plain text.
-
-## Dataset
-
-Everyone in this cohort uses the same dataset — already included at
-`data/co2_emissions_2022.csv`, no download needed. It's a small, curated
-slice (254 rows, 6 columns, the year 2022) of OWID's full public CO2 and
-Greenhouse Gas Emissions dataset. See `data/SOURCE.md` for exactly how it
-was derived and its license (CC BY 4.0, Our World in Data).
-
-Don't substitute a different dataset — using the same one across the cohort
-keeps everyone's grading consistent and means classmates can actually compare
-notes on what they found.
-
-## What to do
-
-See `starter/field_notes.md` — one file for everything: every section tells
-you which terminal command to run, and you fill in the real output you got
-plus your answer, starting from a setup log at the top and ending with a
-real error you hit along the way (start filling it in from Step 1, don't
-reconstruct it at the end). It's where you log commands as you actually run
-them, not reconstructed from memory at the end. `CHECKLIST_TIMELINE.md` has
-the suggested pace across the 2 days and the full step-by-step checklist.
-Your instructor shares the grading rubric separately through the
-classroom — not this repo.
-
-Along the way, you're going to hit at least one confusing terminal error —
-everyone does. When it happens: read the error message, don't just retype
-the command hoping it works. That's exactly what section 9 of
-`starter/field_notes.md` is for.
-
-**Where's the exact bar for "done," and what are the optional stretch
-goals?** Everything required is in `CHECKLIST_TIMELINE.md`, and the
-optional stretch goals are the **Above & Beyond** list at the bottom of
-that same file. For the minimum bar in one short list, use the MVP
-checklist in the LMS, or go back to the original template repo you created
-yours from and switch to its `project-scope` branch to read `MVP.md` (it's
-on the *template's* GitHub page, not your own copy — kept off `main` so it
-doesn't end up sitting in your portfolio repo).
-
-**Share-out:** this week during TIP, we'll share out your data-quality
-questions, how you used AI, and any reflections from the project — so come
-ready to talk about your project.
+Before using it to prioritize climate-support efforts, I would seek clarification from the data provider about missing-value conventions and the definitions of aggregate records. Understanding those limitations is an essential first step toward responsible data analysis.
